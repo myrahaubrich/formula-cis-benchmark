@@ -3,12 +3,17 @@
 
 {% from "cis-benchmark/map.jinja" import cis_benchmark with context %}
 
-{% if grains['os'] == 'CentOS' %}
+# if Amazon Linux 2
+{% if grains['os'] == 'amzn2' %}
 
-# CentOS
-{% if grains['osmajorrelease']|int == 7 %}
+# comCloud
+{% if grains['env']!= gov %}
 include:
-  - cis-benchmark.centos7.enforce
+  - cis-benchmark.amzn2.enforce
+# govCloud
+{% else %}
+include:
+  - cis-benchmark.amzn2.enforceGov
 {% endif %}
 
 {% endif %}
