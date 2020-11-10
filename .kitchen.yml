@@ -1,0 +1,23 @@
+---
+driver:
+  name: docker
+  user_sudo: false
+  privileged: true
+  
+provisioner:
+  name: salt_solo
+  formula: cis-benchmark
+  state_top:
+    base:
+      '*':
+        - cis-benchmark
+
+platforms:
+  - name: amazonlinux-2
+    driver_config:
+      run_command: /lib/systemd/systemd
+
+suites:
+  - name: neon
+    provisioner:
+      salt_bootstrap_options: -X -p git stable 3000
